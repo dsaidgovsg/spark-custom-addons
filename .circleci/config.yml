@@ -21,7 +21,7 @@ jobs:
         name: Build Docker image and save tar as artifact
         command: |
           HIVE_TAG_SUFFIX=$(if [ "${WITH_HIVE}" = "true" ]; then echo _with-hive; fi)
-          CUSTOM_VERSION="spark-${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}"
+          CUSTOM_VERSION="${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}"
           TAG_NAME="${CUSTOM_VERSION}"
 
           docker build . -t ${IMAGE_NAME}:ref \
