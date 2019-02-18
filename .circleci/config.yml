@@ -54,10 +54,8 @@ shared_build: &shared_build
 
         if [ ! -f /tmp/artifacts/docker-image.tar ]; then
           docker build . -f Dockerfile-${DIST} -t ${IMAGE_NAME}:ref \
-            --build-arg SPARK_VERSION=${SPARK_VERSION} \
-            --build-arg HADOOP_VERSION=${HADOOP_VERSION} \
-            --build-arg WITH_HIVE=${WITH_HIVE} \
-            --build-arg WITH_PYSPARK=${WITH_PYSPARK} \
+            --build-arg FROM_DOCKER_IMAGE=${FROM_DOCKER_IMAGE} \
+            --build-arg FROM_DOCKER_TAG=${FROM_DOCKER_TAG} \
             ;
           
           docker save ${IMAGE_NAME}:${TAG_NAME} -o /tmp/artifacts/docker-image.tar

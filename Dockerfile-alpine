@@ -1,5 +1,5 @@
 ARG FROM_DOCKER_IMAGE="guangie88/spark-custom"
-ARG FROM_DOCKER_TAG="spark-2.4.0_hadoop-3.1.0_with-hive_with-python_alpine"
+ARG FROM_DOCKER_TAG="2.4.0_hadoop-3.1.0_with-hive_with-python_alpine"
 FROM ${FROM_DOCKER_IMAGE}:${FROM_DOCKER_TAG}
 
 RUN set -euo pipefail && \
