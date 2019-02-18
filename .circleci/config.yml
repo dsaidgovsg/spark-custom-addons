@@ -1,8 +1,107 @@
 version: 2
+
+#
+# Build step
+#
+
+shared_build: &shared_build
+  environment:
+    IMAGE_NAME: guangie88/spark-custom-addons
+    FROM_DOCKER_IMAGE: guangie88/spark-custom
+    
+  steps:
+  - checkout
+  - setup_remote_docker:
+      docker_layer_caching: true
+  - run:
+      name: Get additional values for checking cache
+      command: |
+        DOCKER_VERSION=$(docker --version)
+        echo ${DOCKER_VERSION} >> /tmp/cache-hash
+
+        HIVE_TAG_SUFFIX=$(if [ "${WITH_HIVE}" = "true" ]; then echo _with-hive; fi)
+        PYSPARK_TAG_SUFFIX=$(if [ "${WITH_PYSPARK}" = "true" ]; then echo _with-pyspark; fi)
+        
+        FROM_DOCKER_TAG="${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}_${DIST}"
+        DOCKER_BUILD_IMAGE_DIGEST="$(docker pull ${FROM_DOCKER_IMAGE}:${FROM_DOCKER_TAG} | grep 'Digest:' | sed -E 's/Digest: (.+)/\1/')"
+        echo ${DOCKER_BUILD_IMAGE_DIGEST} >> /tmp/cache-hash
+
+        DOCKERFILE_HASH=$(cat Dockerfile-${DIST} | md5sum | cut -d' ' -f1)
+        echo ${DOCKERFILE_HASH} >> /tmp/cache-hash
+
+        echo ${SPARK_VERSION} >> /tmp/cache-hash
+        echo ${HADOOP_VERSION} >> /tmp/cache-hash
+        echo ${WITH_HIVE} >> /tmp/cache-hash
+        echo ${WITH_PYSPARK} >> /tmp/cache-hash
+
+        echo ${DIST} >> /tmp/cache-hash
+
+        cat /tmp/cache-hash
+
+        echo "export FROM_DOCKER_TAG=${FROM_DOCKER_TAG}" >> ${BASH_ENV}
+
+  - restore_cache:
+      keys:
+      - v1-spark-custom-addons-{{ checksum "/tmp/cache-hash" }}
+  - run:
+      name: Create artifacts directory
+      command: mkdir -p /tmp/artifacts
+  - run:
+      name: Build Docker image and save image tar as artifact
+      command: |
+        TAG_NAME="${FROM_DOCKER_TAG}"
+        echo "${IMAGE_NAME}:${TAG_NAME}" > /tmp/artifacts/image-tag-name
+
+        if [ ! -f /tmp/artifacts/docker-image.tar ]; then
+          docker build . -f Dockerfile-${DIST} -t ${IMAGE_NAME}:ref \
+            --build-arg FROM_DOCKER_IMAGE=${FROM_DOCKER_IMAGE} \
+            --build-arg FROM_DOCKER_TAG=${FROM_DOCKER_TAG} \
+            ;
+          
+          docker save ${IMAGE_NAME}:ref -o /tmp/artifacts/docker-image.tar
+        fi
+  - save_cache:
+      key: v1-spark-custom-addons-{{ checksum "/tmp/cache-hash" }}
+      paths:
+      - /tmp/artifacts
+
+  - persist_to_workspace:
+      root: /tmp/artifacts
+      paths:
+      - docker-image.tar
+      - image-tag-name
+
+#
+# Publish step
+#
+
+shared_publish: &shared_publish
+  docker:
+  - image: circleci/python:3-stretch
+  steps:
+  - attach_workspace:
+      at: /tmp/artifacts
+  - setup_remote_docker:
+      docker_layer_caching: true
+  - run:
+      name: Log in to Docker registry
+      command: docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+  - run:
+      name: Load from previous Docker build and push image into Docker
+      command: |
+        REF_IMAGE_TAG_NAME=$(docker load -i /tmp/artifacts/docker-image.tar | sed -E 's/Loaded image: (.+)/\1/')
+        IMAGE_TAG_NAME=$(cat /tmp/artifacts/image-tag-name)
+        docker load -i /tmp/artifacts/docker-image.tar
+        docker tag ${REF_IMAGE_TAG_NAME} ${IMAGE_TAG_NAME}
+        docker push ${IMAGE_TAG_NAME}
+
+#
+# Jobs and workflows
+#
+
 jobs:
-  build:
-    environment:
-      IMAGE_NAME: guangie88/spark-custom-addons
+  debian_build:
+    <<: *shared_build
     docker:
     - image: circleci/python:3-stretch
       environment:
@@ -10,58 +109,38 @@ jobs:
         HADOOP_VERSION: 3.1.0
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
-      
-    steps:
-    - checkout
-    - setup_remote_docker:
-        docker_layer_caching: true
-    - run:
-        name: Create artifacts directory
-        command: mkdir -p /tmp/artifacts
-    - run:
-        name: Build Docker image and save tar as artifact
-        command: |
-          HIVE_TAG_SUFFIX=$(if [ "${WITH_HIVE}" = "true" ]; then echo _with-hive; fi)
-          PYSPARK_TAG_SUFFIX=$(if [ "${WITH_PYSPARK}" = "true" ]; then echo _with-pyspark; fi)
-          CUSTOM_VERSION="${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}"
-          TAG_NAME="${CUSTOM_VERSION}"
-
-          docker build . -t ${IMAGE_NAME}:ref \
-            --build-arg CUSTOM_VERSION=${CUSTOM_VERSION}
-
-          docker tag ${IMAGE_NAME}:ref ${IMAGE_NAME}:${TAG_NAME}
-          docker save ${IMAGE_NAME}:${TAG_NAME} > /tmp/artifacts/docker-image.tar
-    - persist_to_workspace:
-        root: /tmp/artifacts
-        paths:
-        - docker-image.tar
-
-  publish:
+        DIST: debian
+  alpine_build:
+    <<: *shared_build
     docker:
     - image: circleci/python:3-stretch
-
-    steps:
-    - attach_workspace:
-        at: /tmp/artifacts
-    - setup_remote_docker:
-        docker_layer_caching: true
-    - run:
-        name: Log in to Docker registry
-        command: docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
-    - run:
-        name: Load from previous Docker build and push image into Docker
-        command: |
-          IMAGE_WITH_TAG_NAME=$(docker load < /tmp/artifacts/docker-image.tar | sed -E 's/Loaded image: (.+)/\1/')
-          docker push ${IMAGE_WITH_TAG_NAME}
+      environment:
+        SPARK_VERSION: 2.4.0
+        HADOOP_VERSION: 3.1.0
+        WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
+        DIST: alpine
+  publish:
+    <<: *shared_publish
 
 workflows:
   version: 2
-  build_and_publish:
+  debian_build_and_publish:
     jobs:
-    - build
+    - debian_build
     - publish:
         requires:
-          - build
+          - debian_build
+        filters:
+          branches:
+            only:
+            - master
+  alpine_build_and_publish:
+    jobs:
+    - alpine_build
+    - publish:
+        requires:
+          - alpine_build
         filters:
           branches:
             only:
