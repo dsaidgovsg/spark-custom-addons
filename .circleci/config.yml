@@ -9,6 +9,7 @@ jobs:
         SPARK_VERSION: 2.4.0
         HADOOP_VERSION: 3.1.0
         WITH_HIVE: "true"
+        WITH_PYSPARK: "true"
       
     steps:
     - checkout
@@ -21,7 +22,8 @@ jobs:
         name: Build Docker image and save tar as artifact
         command: |
           HIVE_TAG_SUFFIX=$(if [ "${WITH_HIVE}" = "true" ]; then echo _with-hive; fi)
-          CUSTOM_VERSION="${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}"
+          PYSPARK_TAG_SUFFIX=$(if [ "${WITH_PYSPARK}" = "true" ]; then echo _with-pyspark; fi)
+          CUSTOM_VERSION="${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}"
           TAG_NAME="${CUSTOM_VERSION}"
 
           docker build . -t ${IMAGE_NAME}:ref \
