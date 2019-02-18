@@ -58,7 +58,7 @@ shared_build: &shared_build
             --build-arg FROM_DOCKER_TAG=${FROM_DOCKER_TAG} \
             ;
           
-          docker save ${IMAGE_NAME}:${TAG_NAME} -o /tmp/artifacts/docker-image.tar
+          docker save ${IMAGE_NAME}:ref -o /tmp/artifacts/docker-image.tar
         fi
   - save_cache:
       key: v1-spark-custom-addons-{{ checksum "/tmp/cache-hash" }}
