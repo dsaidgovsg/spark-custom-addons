@@ -1,0 +1,30 @@
+ARG FROM_DOCKER_IMAGE="guangie88/spark-custom"
+ARG FROM_DOCKER_TAG="spark-2.4.0_hadoop-3.1.0_with-hive_with-python_alpine"
+FROM ${FROM_DOCKER_IMAGE}:${FROM_DOCKER_TAG}
+
+RUN set -euo pipefail && \
+    # apt requirements
+    apk add --no-cache \
+        curl \
+        ; \
+    # AWS S3 JAR
+    cd ${SPARK_HOME}/jars; \
+    curl -LO http://central.maven.org/maven2/org/apache/hadoop/hadoop-aws/3.1.0/hadoop-aws-3.1.0.jar; \
+    curl -LO https://sdk-for-java.amazonwebservices.com/aws-java-sdk-1.11.271.zip; \
+        unzip aws-java-sdk-1.11.271.zip; \
+        mv ./aws-java-sdk-1.11.271/lib/aws-java-sdk-1.11.271.jar ${SPARK_HOME}/jars; \
+        mv ./aws-java-sdk-1.11.271/third-party/lib/*.jar ${SPARK_HOME}/jars; \
+        rm -r ./aws-java-sdk-1.11.271; \
+        rm ./aws-java-sdk-1.11.271.zip; \
+    echo "spark.hadoop.fs.s3a.impl    org.apache.hadoop.fs.s3a.S3AFileSystem" >> ${SPARK_HOME}/conf/spark-defaults.conf; \
+    # Google Storage JAR
+    curl -LO ${SPARK_HOME}/jars/gcs-connector-hadoop2-latest.jar \
+        https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-hadoop2-latest.jar; \
+    # MariaDB connector JAR
+    curl -LO https://downloads.mariadb.com/Connectors/java/connector-java-2.4.0/mariadb-java-client-2.4.0.jar; \
+    # apt clean-up
+    apk del \
+        curl \
+        ; \
+    rm -rf /var/lib/apt/lists/*; \
+    :
