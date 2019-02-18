@@ -1,6 +1,9 @@
 # `spark-custom-addons`
 
-Experimental set-up to add dependencies onto spark-custom Docker images.
+[![CircleCI](https://circleci.com/gh/guangie88/spark-custom-addons.svg?style=svg)](https://circleci.com/gh/guangie88/spark-custom-addons)
+
+Experimental set-up to add dependencies onto `spark-custom` Docker images.
+Builds for both Debian and Alpine.
 
 This adds the following:
 
