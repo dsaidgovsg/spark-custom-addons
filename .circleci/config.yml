@@ -1,8 +1,63 @@
 version: 2
+
+#
+# Build step
+#
+
+shared_build: &shared_build
+  environment:
+    IMAGE_NAME: guangie88/spark-custom-addons
+    FROM_DOCKER_IMAGE: guangie88/spark-custom
+
+  steps:
+  - checkout
+  - setup_remote_docker:
+      docker_layer_caching: true
+  - run:
+      name: Get additional values for checking cache
+      command: |
+        DOCKER_VERSION=$(docker --version)
+        echo ${DOCKER_VERSION} >> /tmp/cache-hash
+
+        FROM_DOCKER_TAG="${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}"
+        DOCKER_BUILD_IMAGE_DIGEST="$(docker pull ${FROM_DOCKER_IMAGE}:${FROM_DOCKER_TAG} | grep 'Digest:' | sed -E 's/Digest: (.+)/\1/')"
+        echo ${DOCKER_BUILD_IMAGE_DIGEST} >> /tmp/cache-hash
+
+        DOCKERFILE_HASH=$(cat Dockerfile-${DIST} | md5sum | cut -d' ' -f1)
+        echo ${DOCKERFILE_HASH} >> /tmp/cache-hash
+
+        echo ${SPARK_VERSION} >> /tmp/cache-hash
+        echo ${HADOOP_VERSION} >> /tmp/cache-hash
+        echo ${WITH_HIVE} >> /tmp/cache-hash
+        echo ${WITH_PYSPARK} >> /tmp/cache-hash
+
+        echo ${DIST} >> /tmp/cache-hash
+
+        cat /tmp/cache-hash
+
+  - run:
+      name: Create artifacts directory
+      command: mkdir -p /tmp/artifacts
+  - run:
+      name: Build Docker image and save tar as artifact
+      command: |
+        HIVE_TAG_SUFFIX=$(if [ "${WITH_HIVE}" = "true" ]; then echo _with-hive; fi)
+        PYSPARK_TAG_SUFFIX=$(if [ "${WITH_PYSPARK}" = "true" ]; then echo _with-pyspark; fi)
+        FROM_DOCKER_TAG="${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}"
+
+        docker build . -t ${IMAGE_NAME}:ref \
+          --build-arg FROM_DOCKER_TAG=${FROM_DOCKER_TAG}
+
+        docker tag ${IMAGE_NAME}:ref ${IMAGE_NAME}:${FROM_DOCKER_TAG}
+        docker save ${IMAGE_NAME}:${FROM_DOCKER_TAG} > /tmp/artifacts/docker-image.tar
+  - persist_to_workspace:
+      root: /tmp/artifacts
+      paths:
+      - docker-image.tar
+
 jobs:
   build:
-    environment:
-      IMAGE_NAME: guangie88/spark-custom-addons
+    
     docker:
     - image: circleci/python:3-stretch
       environment:
@@ -11,30 +66,7 @@ jobs:
         WITH_HIVE: "true"
         WITH_PYSPARK: "true"
       
-    steps:
-    - checkout
-    - setup_remote_docker:
-        docker_layer_caching: true
-    - run:
-        name: Create artifacts directory
-        command: mkdir -p /tmp/artifacts
-    - run:
-        name: Build Docker image and save tar as artifact
-        command: |
-          HIVE_TAG_SUFFIX=$(if [ "${WITH_HIVE}" = "true" ]; then echo _with-hive; fi)
-          PYSPARK_TAG_SUFFIX=$(if [ "${WITH_PYSPARK}" = "true" ]; then echo _with-pyspark; fi)
-          CUSTOM_VERSION="${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}"
-          TAG_NAME="${CUSTOM_VERSION}"
-
-          docker build . -t ${IMAGE_NAME}:ref \
-            --build-arg CUSTOM_VERSION=${CUSTOM_VERSION}
-
-          docker tag ${IMAGE_NAME}:ref ${IMAGE_NAME}:${TAG_NAME}
-          docker save ${IMAGE_NAME}:${TAG_NAME} > /tmp/artifacts/docker-image.tar
-    - persist_to_workspace:
-        root: /tmp/artifacts
-        paths:
-        - docker-image.tar
+    
 
   publish:
     docker:
