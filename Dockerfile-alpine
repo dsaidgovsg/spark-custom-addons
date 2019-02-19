@@ -1,5 +1,6 @@
 ARG FROM_DOCKER_IMAGE="guangie88/spark-custom"
-ARG FROM_DOCKER_TAG="2.4.0_hadoop-3.1.0_with-hive_with-python_alpine"
+# e.g. 2.4.0_hadoop-3.1.0_hive_python_alpine"
+ARG FROM_DOCKER_TAG
 FROM ${FROM_DOCKER_IMAGE}:${FROM_DOCKER_TAG}
 
 RUN set -euo pipefail && \
@@ -22,6 +23,8 @@ RUN set -euo pipefail && \
         https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-hadoop2-latest.jar; \
     # MariaDB connector JAR
     curl -LO https://downloads.mariadb.com/Connectors/java/connector-java-2.4.0/mariadb-java-client-2.4.0.jar; \
+    # Required for prevent snappy compression error because the shared lib is dependent on glibc
+    apk add --no-cache libc6-compat; \
     # apt clean-up
     apk del \
         curl \
