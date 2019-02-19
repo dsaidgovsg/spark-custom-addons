@@ -19,8 +19,8 @@ shared_build: &shared_build
         DOCKER_VERSION=$(docker --version)
         echo ${DOCKER_VERSION} >> /tmp/cache-hash
 
-        HIVE_TAG_SUFFIX=$(if [ "${WITH_HIVE}" = "true" ]; then echo _with-hive; fi)
-        PYSPARK_TAG_SUFFIX=$(if [ "${WITH_PYSPARK}" = "true" ]; then echo _with-pyspark; fi)
+        HIVE_TAG_SUFFIX=$(if [ "${WITH_HIVE}" = "true" ]; then echo _hive; fi)
+        PYSPARK_TAG_SUFFIX=$(if [ "${WITH_PYSPARK}" = "true" ]; then echo _pyspark; fi)
         
         FROM_DOCKER_TAG="${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}_${DIST}"
         DOCKER_BUILD_IMAGE_DIGEST="$(docker pull ${FROM_DOCKER_IMAGE}:${FROM_DOCKER_TAG} | grep 'Digest:' | sed -E 's/Digest: (.+)/\1/')"
