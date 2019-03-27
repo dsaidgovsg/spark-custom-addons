@@ -1,0 +1,50 @@
+language: bash
+
+env:
+  global:
+  - IMAGE_NAME=${DOCKER_USERNAME}/spark-custom-addons
+
+matrix:
+  include:
+  # Debian builds
+{% for v in versions %}
+  - services: docker
+    env:
+    - SPARK_VERSION={{ v.spark }}
+    - HADOOP_VERSION={{ v.hadoop }}
+    - AWS_JAVA_SDK_VERSION={{ v.aws_java_sdk }}
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=debian
+{% endfor %}
+  # Alpine builds
+{% for v in versions %}
+  - services: docker
+    env:
+    - SPARK_VERSION={{ v.spark }}
+    - HADOOP_VERSION={{ v.hadoop }}
+    - AWS_JAVA_SDK_VERSION={{ v.aws_java_sdk }}
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=alpine
+{% endfor %}
+  
+script:
+- docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
+- HIVE_TAG_SUFFIX=$(if [ "${WITH_HIVE}" = "true" ]; then echo _hive; fi)
+- PYSPARK_TAG_SUFFIX=$(if [ "${WITH_PYSPARK}" = "true" ]; then echo _pyspark; fi)
+- TAG_NAME=${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}_${DIST}
+- FULL_IMAGE_NAME="${IMAGE_NAME}:${TAG_NAME}"
+- |-
+  docker build ${DIST}/ -t ${FULL_IMAGE_NAME} \
+    --build-arg SPARK_VERSION=${SPARK_VERSION} \
+    --build-arg HADOOP_VERSION=${HADOOP_VERSION} \
+    --build-arg HIVE_TAG_SUFFIX=${HIVE_TAG_SUFFIX} \
+    --build-arg PYSPARK_TAG_SUFFIX=${PYSPARK_TAG_SUFFIX} \
+    ;
+# Just push, doesn't matter if it's TRAVIS_PULL_REQUEST false/true
+- docker push ${FULL_IMAGE_NAME};
+
+branches:
+  only:
+  - master
