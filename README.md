@@ -13,6 +13,13 @@ This adds the following:
 - Google Cloud Storage SDK JAR
 - MariaDB JDBC Connector JAR
 
+## AWS Java SDK Version Derivation
+
+The version of AWS Java SDK is dependent on the Hadoop version. An example of
+how to derive this version number for Hadoop 3.1.0 is here:
+
+<https://github.com/apache/hadoop/blob/release-3.1.0-RC0/hadoop-project/pom.xml#L137>
+
 ## Generation of `.travis.yml`
 
 This requires `python3` and `pip`. This will allow the installation of
