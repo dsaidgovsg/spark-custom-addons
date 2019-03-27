@@ -249,7 +249,8 @@ script:
 - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
 - HIVE_TAG_SUFFIX=$(if [ "${WITH_HIVE}" = "true" ]; then echo _hive; fi)
 - PYSPARK_TAG_SUFFIX=$(if [ "${WITH_PYSPARK}" = "true" ]; then echo _pyspark; fi)
-- TAG_NAME=${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}_${DIST}
+- DIST_TAG_SUFFIX=_${DIST}
+- TAG_NAME=${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}${DIST_TAG_SUFFIX}
 - FULL_IMAGE_NAME="${IMAGE_NAME}:${TAG_NAME}"
 - |-
   docker build ${DIST}/ -t ${FULL_IMAGE_NAME} \
@@ -257,6 +258,7 @@ script:
     --build-arg HADOOP_VERSION=${HADOOP_VERSION} \
     --build-arg HIVE_TAG_SUFFIX=${HIVE_TAG_SUFFIX} \
     --build-arg PYSPARK_TAG_SUFFIX=${PYSPARK_TAG_SUFFIX} \
+    --build-arg DIST_TAG_SUFFIX=${DIST_TAG_SUFFIX} \
     ;
 # Just push, doesn't matter if it's TRAVIS_PULL_REQUEST false/true
 - docker push ${FULL_IMAGE_NAME};
