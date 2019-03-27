@@ -19,12 +19,12 @@ RUN set -euo pipefail && \
     # AWS S3 JAR
     pushd ${SPARK_HOME}/jars; \
     curl -LO http://central.maven.org/maven2/org/apache/hadoop/hadoop-aws/${HADOOP_VERSION}/hadoop-aws-${HADOOP_VERSION}.jar; \
-    curl -LO https://sdk-for-java.amazonwebservices.com/aws-java-sdk-${AWS_JAVA_SDK_VERSION}}.zip; \
-        unzip aws-java-sdk-${AWS_JAVA_SDK_VERSION}}.zip; \
-        mv ./aws-java-sdk-${AWS_JAVA_SDK_VERSION}}/lib/aws-java-sdk-${AWS_JAVA_SDK_VERSION}}.jar ${SPARK_HOME}/jars; \
-        mv ./aws-java-sdk-${AWS_JAVA_SDK_VERSION}}/third-party/lib/*.jar ${SPARK_HOME}/jars; \
-        rm -r ./aws-java-sdk-${AWS_JAVA_SDK_VERSION}}; \
-        rm ./aws-java-sdk-${AWS_JAVA_SDK_VERSION}}.zip; \
+    curl -LO https://sdk-for-java.amazonwebservices.com/aws-java-sdk-${AWS_JAVA_SDK_VERSION}.zip; \
+        unzip aws-java-sdk-${AWS_JAVA_SDK_VERSION}.zip; \
+        mv ./aws-java-sdk-${AWS_JAVA_SDK_VERSION}/lib/aws-java-sdk-${AWS_JAVA_SDK_VERSION}.jar ${SPARK_HOME}/jars; \
+        mv ./aws-java-sdk-${AWS_JAVA_SDK_VERSION}/third-party/lib/*.jar ${SPARK_HOME}/jars; \
+        rm -r ./aws-java-sdk-${AWS_JAVA_SDK_VERSION}; \
+        rm ./aws-java-sdk-${AWS_JAVA_SDK_VERSION}.zip; \
     echo "spark.hadoop.fs.s3a.impl    org.apache.hadoop.fs.s3a.S3AFileSystem" >> ${SPARK_HOME}/conf/spark-defaults.conf; \
     # Google Storage JAR
     curl -LO https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-hadoop2-latest.jar; \
