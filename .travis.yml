@@ -158,7 +158,7 @@ matrix:
     - HADOOP_VERSION=2.7.3
     - AWS_JAVA_SDK_VERSION=1.7.4
     - WITH_HIVE=true
-    - WITH_PYSPARK=true
+    - WITH_PYSPARK=false
     - DIST=debian
 
   - services: docker
@@ -167,7 +167,7 @@ matrix:
     - HADOOP_VERSION=2.7.3
     - AWS_JAVA_SDK_VERSION=1.7.4
     - WITH_HIVE=true
-    - WITH_PYSPARK=true
+    - WITH_PYSPARK=false
     - DIST=debian
 
   - services: docker
@@ -176,7 +176,7 @@ matrix:
     - HADOOP_VERSION=2.7.3
     - AWS_JAVA_SDK_VERSION=1.7.4
     - WITH_HIVE=true
-    - WITH_PYSPARK=true
+    - WITH_PYSPARK=false
     - DIST=debian
 
   # Alpine builds
@@ -331,7 +331,7 @@ matrix:
     - HADOOP_VERSION=2.7.3
     - AWS_JAVA_SDK_VERSION=1.7.4
     - WITH_HIVE=true
-    - WITH_PYSPARK=true
+    - WITH_PYSPARK=false
     - DIST=alpine
 
   - services: docker
@@ -340,7 +340,7 @@ matrix:
     - HADOOP_VERSION=2.7.3
     - AWS_JAVA_SDK_VERSION=1.7.4
     - WITH_HIVE=true
-    - WITH_PYSPARK=true
+    - WITH_PYSPARK=false
     - DIST=alpine
 
   - services: docker
@@ -349,7 +349,7 @@ matrix:
     - HADOOP_VERSION=2.7.3
     - AWS_JAVA_SDK_VERSION=1.7.4
     - WITH_HIVE=true
-    - WITH_PYSPARK=true
+    - WITH_PYSPARK=false
     - DIST=alpine
 
   
