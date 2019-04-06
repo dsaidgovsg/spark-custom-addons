@@ -13,6 +13,9 @@ This adds the following:
 - Google Cloud Storage SDK JAR
 - MariaDB JDBC Connector JAR
 
+Additionally, all Alpine builds have `gcompat` and `libc6-compat` installed to
+prevent `glibc` shared library related issues.
+
 ## AWS Java SDK Version Derivation
 
 The version of AWS Java SDK is dependent on the Hadoop version. An example of
