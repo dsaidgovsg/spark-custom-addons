@@ -30,7 +30,7 @@ RUN set -euo pipefail && \
     curl -LO https://downloads.mariadb.com/Connectors/java/connector-java-2.4.0/mariadb-java-client-2.4.0.jar; \
     cd -; \
     # Required for prevent snappy compression error because the shared lib is dependent on glibc
-    apk add --no-cache libc6-compat; \
+    apk add --no-cache gcompat libc6-compat; \
     # apt clean-up
     apk del \
         curl \

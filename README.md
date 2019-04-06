@@ -13,6 +13,9 @@ This adds the following:
 - Google Cloud Storage SDK JAR
 - MariaDB JDBC Connector JAR
 
+Additionally, all Alpine builds have `gcompat` and `libc6-compat` installed to
+prevent `glibc` shared library related issues.
+
 ## AWS Java SDK Version Derivation
 
 The version of AWS Java SDK is dependent on the Hadoop version. An example of
@@ -23,7 +26,7 @@ how to derive this version number for Hadoop 3.1.0 is here:
 ## Generation of `.travis.yml`
 
 This requires `python3` and `pip`. This will allow the installation of
-`jinj2-cli`.
+`jinja2-cli`.
 
 Run the following:
 
@@ -34,7 +37,7 @@ python3 -m pip install --user jinja2-cli[yaml]
 Once installed, to generate the new `.travis.yml` file, run:
 
 ```bash
-jinja2 .travis.yml.tmpl vars.yml > .travis.yml
+./apply-vars.sh
 ```
 
 As such, it is generally only necessary to update `vars.yml` to generate for
