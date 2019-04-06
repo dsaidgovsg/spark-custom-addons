@@ -99,16 +99,16 @@ versions:
   hadoop:       2.7.3
   aws_java_sdk: 1.7.4
   with_hive:    "true"
-  with_pyspark: "true"
+  with_pyspark: "false"
 
 - spark:        2.0.1
   hadoop:       2.7.3
   aws_java_sdk: 1.7.4
   with_hive:    "true"
-  with_pyspark: "true"
+  with_pyspark: "false"
 
 - spark:        2.0.0
   hadoop:       2.7.3
   aws_java_sdk: 1.7.4
   with_hive:    "true"
-  with_pyspark: "true"
+  with_pyspark: "false"
