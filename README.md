@@ -37,7 +37,7 @@ python3 -m pip install --user jinja2-cli[yaml]
 Once installed, to generate the new `.travis.yml` file, run:
 
 ```bash
-jinja2 .travis.yml.tmpl vars.yml > .travis.yml
+./apply-vars.sh
 ```
 
 As such, it is generally only necessary to update `vars.yml` to generate for
