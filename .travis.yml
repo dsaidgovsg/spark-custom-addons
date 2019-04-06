@@ -10,9 +10,36 @@ matrix:
 
   - services: docker
     env:
+    - SPARK_VERSION=2.4.1
+    - HADOOP_VERSION=3.1.0
+    - AWS_JAVA_SDK_VERSION=1.11.271
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=debian
+
+  - services: docker
+    env:
+    - SPARK_VERSION=2.4.1
+    - HADOOP_VERSION=2.7.3
+    - AWS_JAVA_SDK_VERSION=1.7.4
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=debian
+
+  - services: docker
+    env:
     - SPARK_VERSION=2.4.0
     - HADOOP_VERSION=3.1.0
     - AWS_JAVA_SDK_VERSION=1.11.271
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=debian
+
+  - services: docker
+    env:
+    - SPARK_VERSION=2.4.0
+    - HADOOP_VERSION=2.7.3
+    - AWS_JAVA_SDK_VERSION=1.7.4
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
@@ -119,6 +146,33 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.1.0
+    - HADOOP_VERSION=2.7.3
+    - AWS_JAVA_SDK_VERSION=1.7.4
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=debian
+
+  - services: docker
+    env:
+    - SPARK_VERSION=2.0.2
+    - HADOOP_VERSION=2.7.3
+    - AWS_JAVA_SDK_VERSION=1.7.4
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=debian
+
+  - services: docker
+    env:
+    - SPARK_VERSION=2.0.1
+    - HADOOP_VERSION=2.7.3
+    - AWS_JAVA_SDK_VERSION=1.7.4
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=debian
+
+  - services: docker
+    env:
+    - SPARK_VERSION=2.0.0
     - HADOOP_VERSION=2.7.3
     - AWS_JAVA_SDK_VERSION=1.7.4
     - WITH_HIVE=true
@@ -129,9 +183,36 @@ matrix:
 
   - services: docker
     env:
+    - SPARK_VERSION=2.4.1
+    - HADOOP_VERSION=3.1.0
+    - AWS_JAVA_SDK_VERSION=1.11.271
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=alpine
+
+  - services: docker
+    env:
+    - SPARK_VERSION=2.4.1
+    - HADOOP_VERSION=2.7.3
+    - AWS_JAVA_SDK_VERSION=1.7.4
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=alpine
+
+  - services: docker
+    env:
     - SPARK_VERSION=2.4.0
     - HADOOP_VERSION=3.1.0
     - AWS_JAVA_SDK_VERSION=1.11.271
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=alpine
+
+  - services: docker
+    env:
+    - SPARK_VERSION=2.4.0
+    - HADOOP_VERSION=2.7.3
+    - AWS_JAVA_SDK_VERSION=1.7.4
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine
@@ -238,6 +319,33 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.1.0
+    - HADOOP_VERSION=2.7.3
+    - AWS_JAVA_SDK_VERSION=1.7.4
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=alpine
+
+  - services: docker
+    env:
+    - SPARK_VERSION=2.0.2
+    - HADOOP_VERSION=2.7.3
+    - AWS_JAVA_SDK_VERSION=1.7.4
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=alpine
+
+  - services: docker
+    env:
+    - SPARK_VERSION=2.0.1
+    - HADOOP_VERSION=2.7.3
+    - AWS_JAVA_SDK_VERSION=1.7.4
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=alpine
+
+  - services: docker
+    env:
+    - SPARK_VERSION=2.0.0
     - HADOOP_VERSION=2.7.3
     - AWS_JAVA_SDK_VERSION=1.7.4
     - WITH_HIVE=true

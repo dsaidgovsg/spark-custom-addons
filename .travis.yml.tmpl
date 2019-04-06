@@ -13,8 +13,8 @@ matrix:
     - SPARK_VERSION={{ v.spark }}
     - HADOOP_VERSION={{ v.hadoop }}
     - AWS_JAVA_SDK_VERSION={{ v.aws_java_sdk }}
-    - WITH_HIVE=true
-    - WITH_PYSPARK=true
+    - WITH_HIVE={{ v.with_hive }}
+    - WITH_PYSPARK={{ v.with_pyspark }}
     - DIST=debian
 {% endfor %}
   # Alpine builds
@@ -24,8 +24,8 @@ matrix:
     - SPARK_VERSION={{ v.spark }}
     - HADOOP_VERSION={{ v.hadoop }}
     - AWS_JAVA_SDK_VERSION={{ v.aws_java_sdk }}
-    - WITH_HIVE=true
-    - WITH_PYSPARK=true
+    - WITH_HIVE={{ v.with_hive }}
+    - WITH_PYSPARK={{ v.with_pyspark }}
     - DIST=alpine
 {% endfor %}
   

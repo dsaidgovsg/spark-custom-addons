@@ -23,7 +23,7 @@ how to derive this version number for Hadoop 3.1.0 is here:
 ## Generation of `.travis.yml`
 
 This requires `python3` and `pip`. This will allow the installation of
-`jinj2-cli`.
+`jinja2-cli`.
 
 Run the following:
 
