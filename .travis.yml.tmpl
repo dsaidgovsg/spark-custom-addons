@@ -13,6 +13,7 @@ matrix:
     - SPARK_VERSION={{ v.spark }}
     - HADOOP_VERSION={{ v.hadoop }}
     - AWS_JAVA_SDK_VERSION={{ v.aws_java_sdk }}
+    - WITH_KUBERNETES={{ v.with_kubernetes }}
     - WITH_HIVE={{ v.with_hive }}
     - WITH_PYSPARK={{ v.with_pyspark }}
     - DIST=debian
@@ -24,6 +25,7 @@ matrix:
     - SPARK_VERSION={{ v.spark }}
     - HADOOP_VERSION={{ v.hadoop }}
     - AWS_JAVA_SDK_VERSION={{ v.aws_java_sdk }}
+    - WITH_KUBERNETES={{ v.with_kubernetes }}
     - WITH_HIVE={{ v.with_hive }}
     - WITH_PYSPARK={{ v.with_pyspark }}
     - DIST=alpine
@@ -31,6 +33,7 @@ matrix:
   
 script:
 - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
+- KUBERNETES_TAG_SUFFIX=$(if [ "${WITH_KUBERNETES}" = "true" ]; then echo _k8s; fi)
 - HIVE_TAG_SUFFIX=$(if [ "${WITH_HIVE}" = "true" ]; then echo _hive; fi)
 - PYSPARK_TAG_SUFFIX=$(if [ "${WITH_PYSPARK}" = "true" ]; then echo _pyspark; fi)
 - DIST_TAG_SUFFIX=_${DIST}
@@ -41,6 +44,7 @@ script:
     --build-arg SPARK_VERSION=${SPARK_VERSION} \
     --build-arg HADOOP_VERSION=${HADOOP_VERSION} \
     --build-arg AWS_JAVA_SDK_VERSION=${AWS_JAVA_SDK_VERSION} \
+    --build-arg KUBERNETES_TAG_SUFFIX=${KUBERNETES_TAG_SUFFIX} \
     --build-arg HIVE_TAG_SUFFIX=${HIVE_TAG_SUFFIX} \
     --build-arg PYSPARK_TAG_SUFFIX=${PYSPARK_TAG_SUFFIX} \
     --build-arg DIST_TAG_SUFFIX=${DIST_TAG_SUFFIX} \
