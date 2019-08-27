@@ -23,22 +23,12 @@ how to derive this version number for Hadoop 3.1.0 is here:
 
 <https://github.com/apache/hadoop/blob/release-3.1.0-RC0/hadoop-project/pom.xml#L137>
 
-## Generation of `.travis.yml`
+## How to Apply Travis Template
 
-This requires `python3` and `pip`. This will allow the installation of
-`jinja2-cli`.
+For Linux user, you can download Tera CLI v0.2 at
+<https://github.com/guangie88/tera-cli/releases> and place it in `PATH`.
 
-Run the following:
+Otherwise, you will need `cargo`, which can be installed via
+[rustup](https://rustup.rs/).
 
-```bash
-python3 -m pip install --user jinja2-cli[yaml]
-```
-
-Once installed, to generate the new `.travis.yml` file, run:
-
-```bash
-./apply-vars.sh
-```
-
-As such, it is generally only necessary to update `vars.yml` to generate for
-new Spark builds.
+Once `cargo` is installed, simply run `cargo install tera-cli --version=^0.2.0`.
