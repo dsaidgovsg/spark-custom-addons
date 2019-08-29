@@ -7,46 +7,67 @@ env:
 matrix:
   include:
   # Debian builds
-{% for v in versions %}
+{%- for v in versions %}
+{%- for spark in v.spark %}
+{%- for hadoop in v.hadoop %}
+{%- for python in v.python %}
+{%- for with_hive in v.with_hive %}
+{%- for with_pyspark in v.with_pyspark %}
   - services: docker
     env:
-    - SPARK_VERSION={{ v.spark }}
-    - HADOOP_VERSION={{ v.hadoop }}
-    - AWS_JAVA_SDK_VERSION={{ v.aws_java_sdk }}
-    - WITH_HIVE={{ v.with_hive }}
-    - WITH_PYSPARK={{ v.with_pyspark }}
+    - SPARK_VERSION={{ spark }}
+    - HADOOP_VERSION={{ hadoop }}
+    - PYTHON_VERSION={{ python }}
+    - WITH_HIVE={{ with_hive }}
+    - WITH_PYSPARK={{ with_pyspark }}
     - DIST=debian
-{% endfor %}
+{%- endfor %}
+{%- endfor %}
+{%- endfor %}
+{%- endfor %}
+{%- endfor %}
+{%- endfor %}
+
   # Alpine builds
-{# {% for v in versions %}
+{%- for v in versions %}
+{%- for spark in v.spark %}
+{%- for hadoop in v.hadoop %}
+{%- for python in v.python %}
+{%- for with_hive in v.with_hive %}
+{%- for with_pyspark in v.with_pyspark %}
   - services: docker
     env:
-    - SPARK_VERSION={{ v.spark }}
-    - HADOOP_VERSION={{ v.hadoop }}
-    - AWS_JAVA_SDK_VERSION={{ v.aws_java_sdk }}
-    - WITH_HIVE={{ v.with_hive }}
-    - WITH_PYSPARK={{ v.with_pyspark }}
+    - SPARK_VERSION={{ spark }}
+    - HADOOP_VERSION={{ hadoop }}
+    - PYTHON_VERSION={{ python }}
+    - WITH_HIVE={{ with_hive }}
+    - WITH_PYSPARK={{ with_pyspark }}
     - DIST=alpine
-{% endfor %} #}
-  
+{%- endfor %}
+{%- endfor %}
+{%- endfor %}
+{%- endfor %}
+{%- endfor %}
+{%- endfor %}
+
 script:
 - HIVE_TAG_SUFFIX="$(if [ "${WITH_HIVE}" = "true" ]; then echo _hive; fi)"
 - PYSPARK_TAG_SUFFIX="$(if [ "${WITH_PYSPARK}" = "true" ]; then echo _pyspark; fi)"
-- DIST_TAG_SUFFIX="_${DIST}"
-- TAG_NAME="${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}${DIST_TAG_SUFFIX}"
+- TAG_NAME="${SPARK_VERSION}_hadoop-${HADOOP_VERSION}_python-${PYTHON_VERSION}_${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}_${DIST}"
 - |-
-  docker build ${DIST}/ -t "${DOCKER_USERNAME}/${IMAGE_NAME}:${TAG_NAME}" \
+  docker build ${DIST}/ -t "guangie88/${IMAGE_NAME}:${TAG_NAME}" \
     --build-arg "SPARK_VERSION=${SPARK_VERSION}" \
     --build-arg "HADOOP_VERSION=${HADOOP_VERSION}" \
     --build-arg "AWS_JAVA_SDK_VERSION=${AWS_JAVA_SDK_VERSION}" \
     --build-arg "HIVE_TAG_SUFFIX=${HIVE_TAG_SUFFIX}" \
     --build-arg "PYSPARK_TAG_SUFFIX=${PYSPARK_TAG_SUFFIX}" \
-    --build-arg "DIST_TAG_SUFFIX=${DIST_TAG_SUFFIX}" \
     ;
 
 deploy:
   provider: script
   script: bash push-images.sh
+  on:
+    branch: master
 
 branches:
   only:

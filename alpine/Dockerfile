@@ -3,12 +3,10 @@ ARG SPARK_VERSION=
 ARG HADOOP_VERSION=
 ARG HIVE_TAG_SUFFIX=
 ARG PYSPARK_TAG_SUFFIX=
-ARG DIST_TAG_SUFFIX=
 
-FROM ${FROM_DOCKER_IMAGE}:${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}${DIST_TAG_SUFFIX}
+FROM ${FROM_DOCKER_IMAGE}:${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}_alpine
 
 ARG HADOOP_VERSION=
-ARG AWS_JAVA_SDK_VERSION=
 
 RUN set -euo pipefail && \
     # apt requirements
@@ -17,6 +15,9 @@ RUN set -euo pipefail && \
         ; \
     # AWS S3 JAR
     cd ${SPARK_HOME}/jars; \
+    ## Get the aws-java-sdk version dynamic based on Hadoop version
+    AWS_JAVA_SDK_VERSION="$(curl -s https://raw.githubusercontent.com/apache/hadoop/branch-${HADOOP_VERSION}/hadoop-project/pom.xml | grep -A1 aws-java-sdk | grep -oE "[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+" | head -n1)"; \
+    ## Download the JAR
     curl -LO http://central.maven.org/maven2/org/apache/hadoop/hadoop-aws/${HADOOP_VERSION}/hadoop-aws-${HADOOP_VERSION}.jar; \
     curl -LO https://sdk-for-java.amazonwebservices.com/aws-java-sdk-${AWS_JAVA_SDK_VERSION}.zip; \
         unzip aws-java-sdk-${AWS_JAVA_SDK_VERSION}.zip; \
