@@ -2,249 +2,226 @@ language: bash
 
 env:
   global:
-  - IMAGE_NAME=${DOCKER_USERNAME}/spark-custom-addons
+  - IMAGE_NAME=spark-custom-addons
 
 matrix:
   include:
   # Debian builds
-
-  - services: docker
-    env:
-    - SPARK_VERSION=2.4.3
-    - HADOOP_VERSION=3.1.0
-    - AWS_JAVA_SDK_VERSION=1.11.271
-    - WITH_HIVE=true
-    - WITH_PYSPARK=true
-    - DIST=debian
-
   - services: docker
     env:
     - SPARK_VERSION=2.4.3
     - HADOOP_VERSION=2.7.3
-    - AWS_JAVA_SDK_VERSION=1.7.4
+    - PYTHON_VERSION=2.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
-
   - services: docker
     env:
-    - SPARK_VERSION=2.4.2
-    - HADOOP_VERSION=3.1.0
-    - AWS_JAVA_SDK_VERSION=1.11.271
-    - WITH_HIVE=true
-    - WITH_PYSPARK=true
-    - DIST=debian
-
-  - services: docker
-    env:
-    - SPARK_VERSION=2.4.2
+    - SPARK_VERSION=2.4.3
     - HADOOP_VERSION=2.7.3
-    - AWS_JAVA_SDK_VERSION=1.7.4
+    - PYTHON_VERSION=3.5
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
-
   - services: docker
     env:
-    - SPARK_VERSION=2.4.1
-    - HADOOP_VERSION=3.1.0
-    - AWS_JAVA_SDK_VERSION=1.11.271
-    - WITH_HIVE=true
-    - WITH_PYSPARK=true
-    - DIST=debian
-
-  - services: docker
-    env:
-    - SPARK_VERSION=2.4.1
+    - SPARK_VERSION=2.4.3
     - HADOOP_VERSION=2.7.3
-    - AWS_JAVA_SDK_VERSION=1.7.4
+    - PYTHON_VERSION=3.6
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
-
   - services: docker
     env:
-    - SPARK_VERSION=2.4.0
-    - HADOOP_VERSION=3.1.0
-    - AWS_JAVA_SDK_VERSION=1.11.271
-    - WITH_HIVE=true
-    - WITH_PYSPARK=true
-    - DIST=debian
-
-  - services: docker
-    env:
-    - SPARK_VERSION=2.4.0
+    - SPARK_VERSION=2.4.3
     - HADOOP_VERSION=2.7.3
-    - AWS_JAVA_SDK_VERSION=1.7.4
+    - PYTHON_VERSION=3.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
-
+  - services: docker
+    env:
+    - SPARK_VERSION=2.4.3
+    - HADOOP_VERSION=3.1.0
+    - PYTHON_VERSION=2.7
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=debian
+  - services: docker
+    env:
+    - SPARK_VERSION=2.4.3
+    - HADOOP_VERSION=3.1.0
+    - PYTHON_VERSION=3.5
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=debian
+  - services: docker
+    env:
+    - SPARK_VERSION=2.4.3
+    - HADOOP_VERSION=3.1.0
+    - PYTHON_VERSION=3.6
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=debian
+  - services: docker
+    env:
+    - SPARK_VERSION=2.4.3
+    - HADOOP_VERSION=3.1.0
+    - PYTHON_VERSION=3.7
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=debian
   - services: docker
     env:
     - SPARK_VERSION=2.3.3
     - HADOOP_VERSION=2.7.3
-    - AWS_JAVA_SDK_VERSION=1.7.4
+    - PYTHON_VERSION=2.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
-
   - services: docker
     env:
-    - SPARK_VERSION=2.3.2
+    - SPARK_VERSION=2.3.3
     - HADOOP_VERSION=2.7.3
-    - AWS_JAVA_SDK_VERSION=1.7.4
+    - PYTHON_VERSION=3.5
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
-
   - services: docker
     env:
-    - SPARK_VERSION=2.3.1
+    - SPARK_VERSION=2.3.3
     - HADOOP_VERSION=2.7.3
-    - AWS_JAVA_SDK_VERSION=1.7.4
+    - PYTHON_VERSION=3.6
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
-
   - services: docker
     env:
-    - SPARK_VERSION=2.3.0
+    - SPARK_VERSION=2.3.3
     - HADOOP_VERSION=2.7.3
-    - AWS_JAVA_SDK_VERSION=1.7.4
+    - PYTHON_VERSION=3.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=debian
 
   # Alpine builds
-
-  - services: docker
-    env:
-    - SPARK_VERSION=2.4.3
-    - HADOOP_VERSION=3.1.0
-    - AWS_JAVA_SDK_VERSION=1.11.271
-    - WITH_HIVE=true
-    - WITH_PYSPARK=true
-    - DIST=alpine
-
   - services: docker
     env:
     - SPARK_VERSION=2.4.3
     - HADOOP_VERSION=2.7.3
-    - AWS_JAVA_SDK_VERSION=1.7.4
+    - PYTHON_VERSION=2.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine
-
   - services: docker
     env:
-    - SPARK_VERSION=2.4.2
-    - HADOOP_VERSION=3.1.0
-    - AWS_JAVA_SDK_VERSION=1.11.271
-    - WITH_HIVE=true
-    - WITH_PYSPARK=true
-    - DIST=alpine
-
-  - services: docker
-    env:
-    - SPARK_VERSION=2.4.2
+    - SPARK_VERSION=2.4.3
     - HADOOP_VERSION=2.7.3
-    - AWS_JAVA_SDK_VERSION=1.7.4
+    - PYTHON_VERSION=3.5
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine
-
   - services: docker
     env:
-    - SPARK_VERSION=2.4.1
-    - HADOOP_VERSION=3.1.0
-    - AWS_JAVA_SDK_VERSION=1.11.271
-    - WITH_HIVE=true
-    - WITH_PYSPARK=true
-    - DIST=alpine
-
-  - services: docker
-    env:
-    - SPARK_VERSION=2.4.1
+    - SPARK_VERSION=2.4.3
     - HADOOP_VERSION=2.7.3
-    - AWS_JAVA_SDK_VERSION=1.7.4
+    - PYTHON_VERSION=3.6
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine
-
   - services: docker
     env:
-    - SPARK_VERSION=2.4.0
-    - HADOOP_VERSION=3.1.0
-    - AWS_JAVA_SDK_VERSION=1.11.271
-    - WITH_HIVE=true
-    - WITH_PYSPARK=true
-    - DIST=alpine
-
-  - services: docker
-    env:
-    - SPARK_VERSION=2.4.0
+    - SPARK_VERSION=2.4.3
     - HADOOP_VERSION=2.7.3
-    - AWS_JAVA_SDK_VERSION=1.7.4
+    - PYTHON_VERSION=3.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine
-
+  - services: docker
+    env:
+    - SPARK_VERSION=2.4.3
+    - HADOOP_VERSION=3.1.0
+    - PYTHON_VERSION=2.7
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=alpine
+  - services: docker
+    env:
+    - SPARK_VERSION=2.4.3
+    - HADOOP_VERSION=3.1.0
+    - PYTHON_VERSION=3.5
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=alpine
+  - services: docker
+    env:
+    - SPARK_VERSION=2.4.3
+    - HADOOP_VERSION=3.1.0
+    - PYTHON_VERSION=3.6
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=alpine
+  - services: docker
+    env:
+    - SPARK_VERSION=2.4.3
+    - HADOOP_VERSION=3.1.0
+    - PYTHON_VERSION=3.7
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=alpine
   - services: docker
     env:
     - SPARK_VERSION=2.3.3
     - HADOOP_VERSION=2.7.3
-    - AWS_JAVA_SDK_VERSION=1.7.4
+    - PYTHON_VERSION=2.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine
-
   - services: docker
     env:
-    - SPARK_VERSION=2.3.2
+    - SPARK_VERSION=2.3.3
     - HADOOP_VERSION=2.7.3
-    - AWS_JAVA_SDK_VERSION=1.7.4
+    - PYTHON_VERSION=3.5
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine
-
   - services: docker
     env:
-    - SPARK_VERSION=2.3.1
+    - SPARK_VERSION=2.3.3
     - HADOOP_VERSION=2.7.3
-    - AWS_JAVA_SDK_VERSION=1.7.4
+    - PYTHON_VERSION=3.6
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine
-
   - services: docker
     env:
-    - SPARK_VERSION=2.3.0
+    - SPARK_VERSION=2.3.3
     - HADOOP_VERSION=2.7.3
-    - AWS_JAVA_SDK_VERSION=1.7.4
+    - PYTHON_VERSION=3.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
     - DIST=alpine
 
-  
 script:
-- docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
-- HIVE_TAG_SUFFIX=$(if [ "${WITH_HIVE}" = "true" ]; then echo _hive; fi)
-- PYSPARK_TAG_SUFFIX=$(if [ "${WITH_PYSPARK}" = "true" ]; then echo _pyspark; fi)
-- DIST_TAG_SUFFIX=_${DIST}
-- TAG_NAME=${SPARK_VERSION}_hadoop-${HADOOP_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}${DIST_TAG_SUFFIX}
-- FULL_IMAGE_NAME="${IMAGE_NAME}:${TAG_NAME}"
+- shellcheck push-images.sh
+- HIVE_TAG_SUFFIX="$(if [ "${WITH_HIVE}" = "true" ]; then echo _hive; fi)"
+- PYSPARK_TAG_SUFFIX="$(if [ "${WITH_PYSPARK}" = "true" ]; then echo _pyspark; fi)"
+- TAG_NAME="${SPARK_VERSION}_hadoop-${HADOOP_VERSION}_python-${PYTHON_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}_${DIST}"
 - |-
-  docker build ${DIST}/ -t ${FULL_IMAGE_NAME} \
-    --build-arg SPARK_VERSION=${SPARK_VERSION} \
-    --build-arg HADOOP_VERSION=${HADOOP_VERSION} \
-    --build-arg AWS_JAVA_SDK_VERSION=${AWS_JAVA_SDK_VERSION} \
-    --build-arg HIVE_TAG_SUFFIX=${HIVE_TAG_SUFFIX} \
-    --build-arg PYSPARK_TAG_SUFFIX=${PYSPARK_TAG_SUFFIX} \
-    --build-arg DIST_TAG_SUFFIX=${DIST_TAG_SUFFIX} \
+  docker build ${DIST}/ -t "guangie88/${IMAGE_NAME}:${TAG_NAME}" \
+    --build-arg "SPARK_VERSION=${SPARK_VERSION}" \
+    --build-arg "HADOOP_VERSION=${HADOOP_VERSION}" \
+    --build-arg "PYTHON_VERSION=${PYTHON_VERSION}" \
+    --build-arg "AWS_JAVA_SDK_VERSION=${AWS_JAVA_SDK_VERSION}" \
+    --build-arg "HIVE_TAG_SUFFIX=${HIVE_TAG_SUFFIX}" \
+    --build-arg "PYSPARK_TAG_SUFFIX=${PYSPARK_TAG_SUFFIX}" \
     ;
-# Just push, doesn't matter if it's TRAVIS_PULL_REQUEST false/true
-- docker push ${FULL_IMAGE_NAME};
+
+deploy:
+  provider: script
+  script: bash push-images.sh
+  on:
+    branch: master
 
 branches:
   only:
