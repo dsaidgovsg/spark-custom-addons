@@ -59,6 +59,7 @@ script:
   docker build ${DIST}/ -t "guangie88/${IMAGE_NAME}:${TAG_NAME}" \
     --build-arg "SPARK_VERSION=${SPARK_VERSION}" \
     --build-arg "HADOOP_VERSION=${HADOOP_VERSION}" \
+    --build-arg "PYTHON_VERSION=${PYTHON_VERSION}" \
     --build-arg "AWS_JAVA_SDK_VERSION=${AWS_JAVA_SDK_VERSION}" \
     --build-arg "HIVE_TAG_SUFFIX=${HIVE_TAG_SUFFIX}" \
     --build-arg "PYSPARK_TAG_SUFFIX=${PYSPARK_TAG_SUFFIX}" \
