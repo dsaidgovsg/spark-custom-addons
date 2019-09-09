@@ -10,7 +10,8 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.4.3
-    - HADOOP_VERSION=2.7.3
+    - SCALA_VERSION=2.11
+    - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=2.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
@@ -18,7 +19,8 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.4.3
-    - HADOOP_VERSION=2.7.3
+    - SCALA_VERSION=2.11
+    - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=3.5
     - WITH_HIVE=true
     - WITH_PYSPARK=true
@@ -26,7 +28,8 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.4.3
-    - HADOOP_VERSION=2.7.3
+    - SCALA_VERSION=2.11
+    - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=3.6
     - WITH_HIVE=true
     - WITH_PYSPARK=true
@@ -34,7 +37,8 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.4.3
-    - HADOOP_VERSION=2.7.3
+    - SCALA_VERSION=2.11
+    - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=3.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
@@ -42,6 +46,7 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.4.3
+    - SCALA_VERSION=2.12
     - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=2.7
     - WITH_HIVE=true
@@ -50,6 +55,7 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.4.3
+    - SCALA_VERSION=2.12
     - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=3.5
     - WITH_HIVE=true
@@ -58,6 +64,7 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.4.3
+    - SCALA_VERSION=2.12
     - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=3.6
     - WITH_HIVE=true
@@ -66,6 +73,7 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.4.3
+    - SCALA_VERSION=2.12
     - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=3.7
     - WITH_HIVE=true
@@ -74,6 +82,7 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.3.3
+    - SCALA_VERSION=2.11
     - HADOOP_VERSION=2.7.3
     - PYTHON_VERSION=2.7
     - WITH_HIVE=true
@@ -82,6 +91,7 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.3.3
+    - SCALA_VERSION=2.11
     - HADOOP_VERSION=2.7.3
     - PYTHON_VERSION=3.5
     - WITH_HIVE=true
@@ -90,6 +100,7 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.3.3
+    - SCALA_VERSION=2.11
     - HADOOP_VERSION=2.7.3
     - PYTHON_VERSION=3.6
     - WITH_HIVE=true
@@ -98,6 +109,43 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.3.3
+    - SCALA_VERSION=2.11
+    - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.7
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=debian
+  - services: docker
+    env:
+    - SPARK_VERSION=2.3.3
+    - SCALA_VERSION=2.12
+    - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=2.7
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=debian
+  - services: docker
+    env:
+    - SPARK_VERSION=2.3.3
+    - SCALA_VERSION=2.12
+    - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.5
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=debian
+  - services: docker
+    env:
+    - SPARK_VERSION=2.3.3
+    - SCALA_VERSION=2.12
+    - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.6
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=debian
+  - services: docker
+    env:
+    - SPARK_VERSION=2.3.3
+    - SCALA_VERSION=2.12
     - HADOOP_VERSION=2.7.3
     - PYTHON_VERSION=3.7
     - WITH_HIVE=true
@@ -108,7 +156,8 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.4.3
-    - HADOOP_VERSION=2.7.3
+    - SCALA_VERSION=2.11
+    - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=2.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
@@ -116,7 +165,8 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.4.3
-    - HADOOP_VERSION=2.7.3
+    - SCALA_VERSION=2.11
+    - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=3.5
     - WITH_HIVE=true
     - WITH_PYSPARK=true
@@ -124,7 +174,8 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.4.3
-    - HADOOP_VERSION=2.7.3
+    - SCALA_VERSION=2.11
+    - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=3.6
     - WITH_HIVE=true
     - WITH_PYSPARK=true
@@ -132,7 +183,8 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.4.3
-    - HADOOP_VERSION=2.7.3
+    - SCALA_VERSION=2.11
+    - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=3.7
     - WITH_HIVE=true
     - WITH_PYSPARK=true
@@ -140,6 +192,7 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.4.3
+    - SCALA_VERSION=2.12
     - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=2.7
     - WITH_HIVE=true
@@ -148,6 +201,7 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.4.3
+    - SCALA_VERSION=2.12
     - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=3.5
     - WITH_HIVE=true
@@ -156,6 +210,7 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.4.3
+    - SCALA_VERSION=2.12
     - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=3.6
     - WITH_HIVE=true
@@ -164,6 +219,7 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.4.3
+    - SCALA_VERSION=2.12
     - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=3.7
     - WITH_HIVE=true
@@ -172,6 +228,7 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.3.3
+    - SCALA_VERSION=2.11
     - HADOOP_VERSION=2.7.3
     - PYTHON_VERSION=2.7
     - WITH_HIVE=true
@@ -180,6 +237,7 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.3.3
+    - SCALA_VERSION=2.11
     - HADOOP_VERSION=2.7.3
     - PYTHON_VERSION=3.5
     - WITH_HIVE=true
@@ -188,6 +246,7 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.3.3
+    - SCALA_VERSION=2.11
     - HADOOP_VERSION=2.7.3
     - PYTHON_VERSION=3.6
     - WITH_HIVE=true
@@ -196,6 +255,43 @@ matrix:
   - services: docker
     env:
     - SPARK_VERSION=2.3.3
+    - SCALA_VERSION=2.11
+    - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.7
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=alpine
+  - services: docker
+    env:
+    - SPARK_VERSION=2.3.3
+    - SCALA_VERSION=2.12
+    - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=2.7
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=alpine
+  - services: docker
+    env:
+    - SPARK_VERSION=2.3.3
+    - SCALA_VERSION=2.12
+    - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.5
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=alpine
+  - services: docker
+    env:
+    - SPARK_VERSION=2.3.3
+    - SCALA_VERSION=2.12
+    - HADOOP_VERSION=2.7.3
+    - PYTHON_VERSION=3.6
+    - WITH_HIVE=true
+    - WITH_PYSPARK=true
+    - DIST=alpine
+  - services: docker
+    env:
+    - SPARK_VERSION=2.3.3
+    - SCALA_VERSION=2.12
     - HADOOP_VERSION=2.7.3
     - PYTHON_VERSION=3.7
     - WITH_HIVE=true
@@ -206,10 +302,11 @@ script:
 - shellcheck push-images.sh
 - HIVE_TAG_SUFFIX="$(if [ "${WITH_HIVE}" = "true" ]; then echo _hive; fi)"
 - PYSPARK_TAG_SUFFIX="$(if [ "${WITH_PYSPARK}" = "true" ]; then echo _pyspark; fi)"
-- TAG_NAME="${SPARK_VERSION}_hadoop-${HADOOP_VERSION}_python-${PYTHON_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}_${DIST}"
+- TAG_NAME="${SPARK_VERSION}_scala-${SCALA_VERSION}_hadoop-${HADOOP_VERSION}_python-${PYTHON_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}_${DIST}"
 - |-
   docker build ${DIST}/ -t "guangie88/${IMAGE_NAME}:${TAG_NAME}" \
     --build-arg "SPARK_VERSION=${SPARK_VERSION}" \
+    --build-arg "SCALA_VERSION=${SCALA_VERSION}" \
     --build-arg "HADOOP_VERSION=${HADOOP_VERSION}" \
     --build-arg "PYTHON_VERSION=${PYTHON_VERSION}" \
     --build-arg "AWS_JAVA_SDK_VERSION=${AWS_JAVA_SDK_VERSION}" \
