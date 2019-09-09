@@ -9,7 +9,7 @@ matrix:
   # Debian builds
   - services: docker
     env:
-    - SPARK_VERSION=2.4.3
+    - SPARK_VERSION=2.4.4
     - SCALA_VERSION=2.11
     - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=2.7
@@ -18,7 +18,7 @@ matrix:
     - DIST=debian
   - services: docker
     env:
-    - SPARK_VERSION=2.4.3
+    - SPARK_VERSION=2.4.4
     - SCALA_VERSION=2.11
     - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=3.5
@@ -27,7 +27,7 @@ matrix:
     - DIST=debian
   - services: docker
     env:
-    - SPARK_VERSION=2.4.3
+    - SPARK_VERSION=2.4.4
     - SCALA_VERSION=2.11
     - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=3.6
@@ -36,7 +36,7 @@ matrix:
     - DIST=debian
   - services: docker
     env:
-    - SPARK_VERSION=2.4.3
+    - SPARK_VERSION=2.4.4
     - SCALA_VERSION=2.11
     - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=3.7
@@ -45,7 +45,7 @@ matrix:
     - DIST=debian
   - services: docker
     env:
-    - SPARK_VERSION=2.4.3
+    - SPARK_VERSION=2.4.4
     - SCALA_VERSION=2.12
     - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=2.7
@@ -54,7 +54,7 @@ matrix:
     - DIST=debian
   - services: docker
     env:
-    - SPARK_VERSION=2.4.3
+    - SPARK_VERSION=2.4.4
     - SCALA_VERSION=2.12
     - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=3.5
@@ -63,7 +63,7 @@ matrix:
     - DIST=debian
   - services: docker
     env:
-    - SPARK_VERSION=2.4.3
+    - SPARK_VERSION=2.4.4
     - SCALA_VERSION=2.12
     - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=3.6
@@ -72,7 +72,7 @@ matrix:
     - DIST=debian
   - services: docker
     env:
-    - SPARK_VERSION=2.4.3
+    - SPARK_VERSION=2.4.4
     - SCALA_VERSION=2.12
     - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=3.7
@@ -155,7 +155,7 @@ matrix:
   # Alpine builds
   - services: docker
     env:
-    - SPARK_VERSION=2.4.3
+    - SPARK_VERSION=2.4.4
     - SCALA_VERSION=2.11
     - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=2.7
@@ -164,7 +164,7 @@ matrix:
     - DIST=alpine
   - services: docker
     env:
-    - SPARK_VERSION=2.4.3
+    - SPARK_VERSION=2.4.4
     - SCALA_VERSION=2.11
     - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=3.5
@@ -173,7 +173,7 @@ matrix:
     - DIST=alpine
   - services: docker
     env:
-    - SPARK_VERSION=2.4.3
+    - SPARK_VERSION=2.4.4
     - SCALA_VERSION=2.11
     - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=3.6
@@ -182,7 +182,7 @@ matrix:
     - DIST=alpine
   - services: docker
     env:
-    - SPARK_VERSION=2.4.3
+    - SPARK_VERSION=2.4.4
     - SCALA_VERSION=2.11
     - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=3.7
@@ -191,7 +191,7 @@ matrix:
     - DIST=alpine
   - services: docker
     env:
-    - SPARK_VERSION=2.4.3
+    - SPARK_VERSION=2.4.4
     - SCALA_VERSION=2.12
     - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=2.7
@@ -200,7 +200,7 @@ matrix:
     - DIST=alpine
   - services: docker
     env:
-    - SPARK_VERSION=2.4.3
+    - SPARK_VERSION=2.4.4
     - SCALA_VERSION=2.12
     - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=3.5
@@ -209,7 +209,7 @@ matrix:
     - DIST=alpine
   - services: docker
     env:
-    - SPARK_VERSION=2.4.3
+    - SPARK_VERSION=2.4.4
     - SCALA_VERSION=2.12
     - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=3.6
@@ -218,7 +218,7 @@ matrix:
     - DIST=alpine
   - services: docker
     env:
-    - SPARK_VERSION=2.4.3
+    - SPARK_VERSION=2.4.4
     - SCALA_VERSION=2.12
     - HADOOP_VERSION=3.1.0
     - PYTHON_VERSION=3.7
