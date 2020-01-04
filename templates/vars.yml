@@ -1,3 +1,9 @@
+self_version: v1
+
+dists:
+- debian
+- alpine
+
 versions:
 - spark:        ['2.4.4']
   scala:        ['2.11', '2.12']

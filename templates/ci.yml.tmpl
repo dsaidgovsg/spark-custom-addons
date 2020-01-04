@@ -1,0 +1,89 @@
+name: CI
+
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+    branches:
+    - master
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        version:
+{%- for dist in dists %}
+{%- for v in versions %}
+{%- for spark in v.spark %}
+{%- for scala in v.scala %}
+{%- for hadoop in v.hadoop %}
+{%- for python in v.python %}
+{%- for with_hive in v.with_hive %}
+{%- for with_pyspark in v.with_pyspark %}
+        - dist:         "{{ dist }}"
+          spark:        "{{ spark }}"
+          scala:        "{{ scala }}"
+          hadoop:       "{{ hadoop }}"
+          python:       "{{ python }}"
+          with_hive:    "{{ with_hive }}"
+          with_pyspark: "{{ with_pyspark }}"
+{%- endfor %}
+{%- endfor %}
+{%- endfor %}
+{%- endfor %}
+{%- endfor %}
+{%- endfor %}
+{%- endfor %}
+{%- endfor %}
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: spark-custom-addons
+      SELF_VERSION: "{{ self_version }}"
+      {% raw -%}
+      DIST={{ dist }}
+      SPARK_VERSION={{ spark }}
+      SCALA_VERSION={{ scala }}
+      HADOOP_VERSION={{ hadoop }}
+      PYTHON_VERSION={{ python }}
+      WITH_HIVE={{ with_hive }}
+      WITH_PYSPARK={{ with_pyspark }}
+      {%- endraw %}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v1
+    - name: Install tera-cli
+      run: |-
+        wget https://github.com/guangie88/tera-cli/releases/download/v0.2.1/tera_linux_amd64 -O /tmp/tera
+        chmod +x /tmp/tera
+    - name: Check shell scripts
+      run: |-
+        shellcheck push-images.sh
+        shellcheck templates/apply-vars.sh
+    - name: Check differences between ci.yml and ci.yml.tmpl
+      run: |-
+        cp .github/workflows/ci.yml .github/workflows/ci.yml.backup
+        TERA=/tmp/tera ./templates/apply-vars.sh
+        if ! diff .github/workflows/ci.yml .github/workflows/ci.yml.backup; then echo "ci.yml.tmpl and ci.yml differs!" && exit 1; fi
+    - name: Build Docker image
+      run: |-
+        HIVE_TAG_SUFFIX="$(if [ "${WITH_HIVE}" = "true" ]; then echo _hive; fi)"
+        PYSPARK_TAG_SUFFIX="$(if [ "${WITH_PYSPARK}" = "true" ]; then echo _pyspark; fi)"
+        TAG_NAME="${SPARK_VERSION}_scala-${SCALA_VERSION}_hadoop-${HADOOP_VERSION}_python-${PYTHON_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}_${DIST}"
+        docker build ${DIST}/ -t "guangie88/${IMAGE_NAME}:${TAG_NAME}" \
+          --build-arg "SPARK_VERSION=${SPARK_VERSION}" \
+          --build-arg "SCALA_VERSION=${SCALA_VERSION}" \
+          --build-arg "HADOOP_VERSION=${HADOOP_VERSION}" \
+          --build-arg "PYTHON_VERSION=${PYTHON_VERSION}" \
+          --build-arg "AWS_JAVA_SDK_VERSION=${AWS_JAVA_SDK_VERSION}" \
+          --build-arg "HIVE_TAG_SUFFIX=${HIVE_TAG_SUFFIX}" \
+          --build-arg "PYSPARK_TAG_SUFFIX=${PYSPARK_TAG_SUFFIX}" \
+          ;
+    - name: Push Docker image
+      run: bash push-images.sh
+      env:
+        {% raw -%}
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        {%- endraw %}
+      if: github.event_name == 'push'
