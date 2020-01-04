@@ -1,6 +1,6 @@
 # `spark-custom-addons`
 
-[![Build Status](https://travis-ci.org/guangie88/spark-custom-addons.svg?branch=master)](https://travis-ci.org/guangie88/spark-custom-addons)
+![CI Status](https://img.shields.io/github/workflow/status/guangie88/spark-custom-addons/CI/master?label=CI&logo=github&style=for-the-badge)
 
 Experimental set-up to add dependencies onto `spark-custom` Docker images.
 Builds for both Debian and Alpine.
@@ -23,7 +23,7 @@ how to derive this version number for Hadoop 3.1.0 is here:
 
 <https://github.com/apache/hadoop/blob/release-3.1.0-RC0/hadoop-project/pom.xml#L137>
 
-## How to Apply Travis Template
+## How to Apply CI Template
 
 For Linux user, you can download Tera CLI v0.2 at
 <https://github.com/guangie88/tera-cli/releases> and place it in `PATH`.
