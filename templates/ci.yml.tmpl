@@ -41,13 +41,13 @@ jobs:
       IMAGE_NAME: spark-custom-addons
       SELF_VERSION: "{{ self_version }}"
       {% raw -%}
-      DIST={{ dist }}
-      SPARK_VERSION={{ spark }}
-      SCALA_VERSION={{ scala }}
-      HADOOP_VERSION={{ hadoop }}
-      PYTHON_VERSION={{ python }}
-      WITH_HIVE={{ with_hive }}
-      WITH_PYSPARK={{ with_pyspark }}
+      DIST: "${{ dist }}"
+      SPARK_VERSION: "${{ spark }}"
+      SCALA_VERSION: "${{ scala }}"
+      HADOOP_VERSION: "${{ hadoop }}"
+      PYTHON_VERSION: "${{ python }}"
+      WITH_HIVE: "${{ with_hive }}"
+      WITH_PYSPARK: "${{ with_pyspark }}"
       {%- endraw %}
     steps:
     - name: Checkout code
