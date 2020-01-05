@@ -184,7 +184,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       IMAGE_NAME: spark-custom-addons
-      SELF_VERSION: "v1"
+      SELF_VERSION: "v2"
       DIST: "${{ matrix.version.dist }}"
       SPARK_VERSION: "${{ matrix.version.spark }}"
       SCALA_VERSION: "${{ matrix.version.scala }}"
