@@ -15,8 +15,6 @@ RUN set -euo pipefail && \
     apk add --no-cache \
         curl \
         ; \
-    # Common pip dep requirement
-    python -m pip install --no-cache-dir pendulum==1.4.4; \
     # AWS S3 JAR
     cd ${SPARK_HOME}/jars; \
     ## Get the aws-java-sdk version dynamic based on Hadoop version
