@@ -33,6 +33,8 @@ RUN set -euo pipefail && \
     curl -LO https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-hadoop2-latest.jar; \
     # MariaDB connector JAR
     curl -LO https://downloads.mariadb.com/Connectors/java/connector-java-2.4.0/mariadb-java-client-2.4.0.jar; \
+    # Postgres JDBC JAR
+    curl -LO https://jdbc.postgresql.org/download/postgresql-42.2.10.jar; \
     cd -; \
     # Required for prevent snappy compression error because the shared lib is dependent on glibc
     apk add --no-cache gcompat libc6-compat; \
