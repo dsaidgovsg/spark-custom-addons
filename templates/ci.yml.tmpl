@@ -70,7 +70,7 @@ jobs:
       run: |-
         HIVE_TAG_SUFFIX="$(if [ "${WITH_HIVE}" = "true" ]; then echo _hive; fi)"
         PYSPARK_TAG_SUFFIX="$(if [ "${WITH_PYSPARK}" = "true" ]; then echo _pyspark; fi)"
-        TAG_NAME="${SPARK_VERSION}_scala-${SCALA_VERSION}_hadoop-${HADOOP_VERSION}_python-${PYTHON_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}_${DIST}"
+        TAG_NAME="${SELF_VERSION}_${SPARK_VERSION}_scala-${SCALA_VERSION}_hadoop-${HADOOP_VERSION}_python-${PYTHON_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}_${DIST}"
         docker build "${DIST}/" -t "${IMAGE_NAME}:${TAG_NAME}" \
           --build-arg BASE_VERSION=${BASE_VERSION} \
           --build-arg SPARK_VERSION=${SPARK_VERSION} \
