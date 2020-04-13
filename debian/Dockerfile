@@ -36,6 +36,8 @@ RUN set -euo pipefail && \
     curl -LO https://downloads.mariadb.com/Connectors/java/connector-java-2.4.0/mariadb-java-client-2.4.0.jar; \
     # Postgres JDBC JAR
     curl -LO https://jdbc.postgresql.org/download/postgresql-42.2.10.jar; \
+    # Spark Hadoop Cloud Integration JAR
+    curl -LO https://repo.hortonworks.com/content/repositories/releases/org/apache/spark/spark-hadoop-cloud_2.11/2.3.2.3.1.0.6-1/spark-hadoop-cloud_2.11-2.3.2.3.1.0.6-1.jar; \
     popd; \
     # apt clean-up
     apt-get remove -y \
