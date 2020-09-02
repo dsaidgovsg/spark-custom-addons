@@ -1,6 +1,6 @@
 # `spark-custom-addons`
 
-![CI Status](https://img.shields.io/github/workflow/status/guangie88/spark-custom-addons/CI/master?label=CI&logo=github&style=for-the-badge)
+![CI Status](https://img.shields.io/github/workflow/status/dsaidgovsg/spark-custom-addons/CI/master?label=CI&logo=github&style=for-the-badge)
 
 Experimental set-up to add dependencies onto `spark-custom` Docker images.
 Builds for both Debian and Alpine.

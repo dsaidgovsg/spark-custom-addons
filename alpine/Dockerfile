@@ -1,4 +1,4 @@
-ARG FROM_DOCKER_IMAGE="guangie88/spark-custom"
+ARG FROM_DOCKER_IMAGE="dsaidgovsg/spark-custom"
 ARG BASE_VERSION=
 ARG SPARK_VERSION=
 ARG SCALA_VERSION=
