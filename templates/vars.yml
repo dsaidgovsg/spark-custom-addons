@@ -1,20 +1,18 @@
 self_version: 'v2'
 
 versions:
-- spark:        ['2.4.4', '2.4.5']
+- spark:        ['3.0.0', '3.0.1']
+  scala:        ['2.12']
+  hadoop:       ['3.2.0']
+  python:       ['3.5', '3.6', '3.7', '3.8']
+  with_hive:    ['true']
+  with_pyspark: ['true']
+  dist:         ['alpine', 'debian']
+
+- spark:        ['2.4.5', '2.4.6', '2.4.7']
   scala:        ['2.11', '2.12']
   hadoop:       ['2.7.3', '3.1.0']
   python:       ['3.5', '3.6', '3.7', '3.8']
   with_hive:    ['true']
   with_pyspark: ['true']
   dist:         ['alpine', 'debian']
-
-- spark:        ['2.3.4']
-  scala:        ['2.11', '2.12']
-  hadoop:       ['2.7.3']
-  python:       ['3.5', '3.6', '3.7', '3.8']
-  with_hive:    ['true']
-  with_pyspark: ['true']
-  dist:         ['alpine', 'debian']
-
-# Note: Spark version 2.0.z does not have pyspark distribution
