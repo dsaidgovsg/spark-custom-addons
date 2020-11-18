@@ -42,7 +42,7 @@ jobs:
     env:
       IMAGE_NAME: spark-custom-addons
       SELF_VERSION: "{{ self_version }}"
-      BASE_VERSION: "v1"
+      BASE_VERSION: "{{ base_version }}"
       {% raw -%}
       SPARK_VERSION: "${{ matrix.version.spark }}"
       SCALA_VERSION: "${{ matrix.version.scala }}"
@@ -53,6 +53,14 @@ jobs:
       DIST: "${{ matrix.version.dist }}"
       {%- endraw %}
     steps:
+    - name: Set global environment variables
+      run: |-
+        TAG_NAME="${SELF_VERSION}_${SPARK_VERSION}_scala-${SCALA_VERSION}_hadoop-${HADOOP_VERSION}_python-${PYTHON_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}_${DIST}"
+        echo "TAG_NAME=${TAG_NAME}" >> $GITHUB_ENV
+        HIVE_TAG_SUFFIX="$(if [ "${WITH_HIVE}" = "true" ]; then echo _hive; fi)"
+        echo "HIVE_TAG_SUFFIX=${HIVE_TAG_SUFFIX}" >> $GITHUB_ENV
+        PYSPARK_TAG_SUFFIX="$(if [ "${WITH_PYSPARK}" = true ]; then echo _pyspark; fi)"
+        echo "PYSPARK_TAG_SUFFIX=${PYSPARK_TAG_SUFFIX}" >> $GITHUB_ENV
     - name: Checkout code
       uses: actions/checkout@v1
     - name: Install tera-cli
@@ -68,9 +76,6 @@ jobs:
       run: shellcheck push-images.sh
     - name: Build Docker image
       run: |-
-        HIVE_TAG_SUFFIX="$(if [ "${WITH_HIVE}" = "true" ]; then echo _hive; fi)"
-        PYSPARK_TAG_SUFFIX="$(if [ "${WITH_PYSPARK}" = "true" ]; then echo _pyspark; fi)"
-        TAG_NAME="${SELF_VERSION}_${SPARK_VERSION}_scala-${SCALA_VERSION}_hadoop-${HADOOP_VERSION}_python-${PYTHON_VERSION}${HIVE_TAG_SUFFIX}${PYSPARK_TAG_SUFFIX}_${DIST}"
         docker build "${DIST}/" -t "${IMAGE_NAME}:${TAG_NAME}" \
           --build-arg BASE_VERSION=${BASE_VERSION} \
           --build-arg SPARK_VERSION=${SPARK_VERSION} \
@@ -80,10 +85,7 @@ jobs:
           --build-arg HIVE_TAG_SUFFIX=${HIVE_TAG_SUFFIX} \
           --build-arg PYSPARK_TAG_SUFFIX=${PYSPARK_TAG_SUFFIX} \
     - name: Push Docker image
-      run: |-
-        export HIVE_TAG_SUFFIX="$(if [ "${WITH_HIVE}" = "true" ]; then echo _hive; fi)"
-        export PYSPARK_TAG_SUFFIX="$(if [ "${WITH_PYSPARK}" = "true" ]; then echo _pyspark; fi)"
-        bash push-images.sh
+      run: bash push-images.sh
       env:
         {% raw -%}
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
